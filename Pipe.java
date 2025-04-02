@@ -12,6 +12,8 @@ public class Pipe extends JPanel {
 
     private static final int MAX_HEIGHT = 288;
 
+    private static final int PIPE_SPEED = 5;
+    private static final int PIPE_WIDTH = 64;
 
     public Pipe(int xPosition) {
         this.xPosition = xPosition;
@@ -39,5 +41,14 @@ public class Pipe extends JPanel {
         add(bottomPipeLabel);
 
         setOpaque(false);
+    }
+
+    public void move() {
+        xPosition -= PIPE_SPEED;
+        setLocation(xPosition, 0);
+    }
+
+    public boolean isOutOfBounds() {
+        return xPosition + PIPE_WIDTH < 0;
     }
 }
