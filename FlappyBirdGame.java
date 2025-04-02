@@ -24,6 +24,9 @@ public class FlappyBirdGame extends JFrame {
         bird = new Bird();
         backgroundLabel.add(bird);
 
+        Pipe pipe1 = new Pipe(WIDTH/2);
+        backgroundLabel.add(pipe1);
+
         gravityTimer = new Timer(30, e -> bird.fall());
         gravityTimer.start();
 
