@@ -1,10 +1,11 @@
-import java.awt.Image;
 import javax.swing.*;
 
 public class FlappyBirdGame extends JFrame {
 
     public static final int WIDTH = 360;
     public static final int HEIGHT = 640;
+    private Bird bird;
+    private Timer gravityTimer;
 
     public FlappyBirdGame() {
         setTitle("Flappy Bird");
@@ -19,13 +20,11 @@ public class FlappyBirdGame extends JFrame {
         backgroundLabel.setBounds(0, 0, WIDTH, HEIGHT);
         add(backgroundLabel);
 
-        ImageIcon birdIcon = new ImageIcon("./flappybird.png");
-        Image scaledBird = birdIcon.getImage().getScaledInstance(34, 24, Image.SCALE_SMOOTH);
-        ImageIcon resizedBirdIcon = new ImageIcon(scaledBird);
+        bird = new Bird();
+        backgroundLabel.add(bird);
 
-        JLabel birdLabel = new JLabel(resizedBirdIcon);
-        birdLabel.setBounds(50, HEIGHT / 2, resizedBirdIcon.getIconWidth(), resizedBirdIcon.getIconHeight());
-        backgroundLabel.add(birdLabel);
+        gravityTimer = new Timer(30, e -> bird.fall());
+        gravityTimer.start();
 
         setVisible(true);
     }
