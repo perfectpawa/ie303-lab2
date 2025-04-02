@@ -1,3 +1,4 @@
+import java.awt.event.*;
 import javax.swing.*;
 
 public class FlappyBirdGame extends JFrame {
@@ -25,6 +26,15 @@ public class FlappyBirdGame extends JFrame {
 
         gravityTimer = new Timer(30, e -> bird.fall());
         gravityTimer.start();
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    bird.fly();
+                }
+            }
+        });
 
         setVisible(true);
     }

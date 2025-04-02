@@ -4,6 +4,7 @@ import javax.swing.*;
 public class Bird extends JLabel {
     private int velocity = 0;
     private static final int GRAVITY = 1;
+    private static final int FLAP_STRENGTH = -10;
 
     public Bird() {
         ImageIcon birdIcon = new ImageIcon("./flappybird.png");
@@ -18,5 +19,9 @@ public class Bird extends JLabel {
     public void fall() {
         velocity += GRAVITY;
         setLocation(getX(), getY() + velocity);
+    }
+
+    public void fly() {
+        velocity = FLAP_STRENGTH;
     }
 }
