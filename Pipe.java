@@ -64,4 +64,16 @@ public class Pipe extends JPanel {
         }
         return false;
     }
+
+    public boolean collidesWith(Bird bird) {
+        // Check if the bird's x position has crossed the pipe's x position + width within the gap
+        if (bird.getX() + bird.getWidth() > this.xPosition && bird.getX() < this.xPosition + PIPE_WIDTH) {
+            // Check if the bird's y position is within the gap
+            if (bird.getY() < topPipeLabel.getY() + topPipeLabel.getHeight() || bird.getY() + bird.getHeight() > bottomPipeLabel.getY()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

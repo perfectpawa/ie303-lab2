@@ -70,9 +70,15 @@ public class FlappyBirdGame extends JFrame {
     private void gameLoop() {
         for (Pipe pipe : pipes) {
             pipe.move();
-        }
 
-        for (Pipe pipe : pipes) {
+            if (pipe.collidesWith(bird)) {
+                //print collision message
+                System.out.println("Collision detected!");
+            
+                gameOver();
+                return;
+            }
+
             if (pipe.isPassed(bird)) {
                 score++;
                 scoreLabel.setText("Score: " + score);
@@ -87,7 +93,34 @@ public class FlappyBirdGame extends JFrame {
                 backgroundLabel.remove(pipe);
             }
         }
+
+        // Remove pipes that have moved off screen
+        for (int i = pipes.size() - 1; i >= 0; i--) {
+            Pipe pipe = pipes.get(i);
+            if (pipe.isOutOfBounds()) {
+                pipes.remove(pipe);
+                backgroundLabel.remove(pipe);
+            }
+        }
+
+        //check if bird is out of bounds
+        if (bird.getY() > HEIGHT || bird.getY() < 0) {
+            System.out.println("bird down");
+            gameOver();
+        }
     }
+
+    private void gameOver() {
+        // Set the gameOver flag and display the message
+        JLabel gameOverLabel = new JLabel("Game Over! Press Space or Enter to Restart");
+        gameOverLabel.setBounds(50, HEIGHT / 2, 300, 30);
+        gameOverLabel.setForeground(java.awt.Color.WHITE);
+        backgroundLabel.add(gameOverLabel);
+        backgroundLabel.repaint();
+        // Stop any game loops, timers, or animations
+        gravityTimer.stop();
+        gameLoopTimer.stop();
+    } 
 
     private void spawnPipe() {
         int xPosition = WIDTH;
