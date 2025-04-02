@@ -16,6 +16,9 @@ public class FlappyBirdGame extends JFrame {
 
     JLabel backgroundLabel;
 
+    JLabel scoreLabel;
+    int score;
+
     public FlappyBirdGame() {
         setTitle("Flappy Bird");
         setSize(WIDTH, HEIGHT);
@@ -47,6 +50,11 @@ public class FlappyBirdGame extends JFrame {
         });
         spawnPipeTimer.start();
 
+        scoreLabel = new JLabel("Score: " + score);
+        scoreLabel.setBounds(10, 10, 100, 30);
+        scoreLabel.setForeground(java.awt.Color.WHITE);
+        backgroundLabel.add(scoreLabel);
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -62,6 +70,13 @@ public class FlappyBirdGame extends JFrame {
     private void gameLoop() {
         for (Pipe pipe : pipes) {
             pipe.move();
+        }
+
+        for (Pipe pipe : pipes) {
+            if (pipe.isPassed(bird)) {
+                score++;
+                scoreLabel.setText("Score: " + score);
+            }
         }
 
         //if pipe is outbound, remove from the list and backgroundLabel

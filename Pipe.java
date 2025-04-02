@@ -15,6 +15,8 @@ public class Pipe extends JPanel {
     private static final int PIPE_SPEED = 5;
     private static final int PIPE_WIDTH = 64;
 
+    private boolean passed;
+
     public Pipe(int xPosition) {
         this.xPosition = xPosition;
 
@@ -41,6 +43,8 @@ public class Pipe extends JPanel {
         add(bottomPipeLabel);
 
         setOpaque(false);
+
+        this.passed = false;
     }
 
     public void move() {
@@ -50,5 +54,14 @@ public class Pipe extends JPanel {
 
     public boolean isOutOfBounds() {
         return xPosition + PIPE_WIDTH < 0;
+    }
+
+    public boolean isPassed(Bird bird) {
+        // Check if the bird's x position has crossed the pipe's x position + width
+        if (!passed && bird.getX() + bird.getWidth() > this.xPosition + PIPE_WIDTH) {
+            passed = true;
+            return true;
+        }
+        return false;
     }
 }
