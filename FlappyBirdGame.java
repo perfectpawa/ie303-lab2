@@ -11,10 +11,19 @@ public class FlappyBirdGame extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
+        //add image to the background
+        ImageIcon background = new ImageIcon("./flappybirdbg.png");
+        JLabel backgroundLabel = new JLabel(background);
+        backgroundLabel.setLayout(new BoxLayout(backgroundLabel, BoxLayout.Y_AXIS));
+        backgroundLabel.setPreferredSize(new java.awt.Dimension(WIDTH, HEIGHT));
+        backgroundLabel.setIcon(background);
+        add(backgroundLabel);
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {
-        FlappyBirdGame app = new FlappyBirdGame();
-        app.setVisible(true);
+        SwingUtilities.invokeLater(() -> new FlappyBirdGame());
     }
 }
